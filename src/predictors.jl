@@ -118,4 +118,33 @@ function predict!(xnext, ::RK4, cache::RK4Cache, H::HomotopyWithCache, x, t, Δt
     @. xnext = x - 0.16666666666666666Δt * (mk₁ + 2mk₂ + 2mk₃ + mk₄)
     nothing
 end
+
+
+"""
+    Adaptive()
+
+The classical [Runge-Kutta](https://en.wikipedia.org/wiki/Runge–Kutta_methods)
+predictor of order 4.
+"""
+struct Adaptive <: AbstractPredictor end
+struct AdaptiveCache{T} <: AbstractPredictorCache
+    euler::EulerCache{T}
+    rk::RK4Cache{T}
+end
+
+function cache(::Adaptive, H, x, t)
+    AdaptiveCache(
+        cache(Euler(), H, x, t),
+        cache(RK4(), H, x, t))
+end
+#
+function predict!(xnext, ::Adaptive, cache::AdaptiveCache, H::HomotopyWithCache, x, t, Δt)
+    if abs(Δt) < 1e-5
+        predict!(xnext, Euler(), cache.euler, H, x, t, Δt)
+    else
+        predict!(xnext, RK4(), cache.rk, H, x, t, Δt)
+    end
+    nothing
+end
+
 end
