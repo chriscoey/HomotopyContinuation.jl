@@ -14,6 +14,7 @@ export AbstractPredictor,
 include("abstract_predictor.jl")
 include("euler.jl")
 include("rk4.jl")
+include("overdetermined_euler.jl")
 
 
 

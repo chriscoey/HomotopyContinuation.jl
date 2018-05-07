@@ -5,7 +5,7 @@
 """
     Newton()
 
-A classical simple Newton operator for square linear systems using the LU factorization
+A classical simple Newton operator for square systems using the LU factorization
 to solve the linear systems.
 """
 struct Newton <: AbstractCorrector end

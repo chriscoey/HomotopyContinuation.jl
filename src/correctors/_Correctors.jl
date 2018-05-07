@@ -12,5 +12,6 @@ export AbstractCorrector,
 
 include("abstract_corrector.jl")
 include("newton.jl")
+include("overdetermined_newton.jl")
 
 end
