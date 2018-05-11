@@ -13,6 +13,7 @@ import ..Homotopies
 import ..PathTracking
 import ..Parallel
 import ..Problems
+import ..PatchSwitching
 import ..Systems
 
 export Solver,
